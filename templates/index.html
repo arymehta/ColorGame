@@ -20,6 +20,8 @@
         ColorPicker
     </header>
 
+    <p class = "alert-message" id = "result">Guess the Color!</p>
+
     <main>
         <div class="container">
             <div class="display-color" style = "background-color: rgb({{R}}, {{G}}, {{B}});">
@@ -36,10 +38,54 @@
                 <div style = "text-align: center;">
                     <input id = "guess" type = "color" name = "color">
                     <br>
-                    <button id = "submit-button">Guess !</button>
+                    <button onclick = "validate({{R}}, {{G}}, {{B}})" id = "submit-button">Guess !</button>
                 </div>
             </div>
         </div>
     </main>
+    <script>
+        function hexToRgb(hex) {
+            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+            console.log(result);
+        }
+
+        function diff(R, G, B, rgbChosen)
+        {
+            deltaR = R - rgbChosen.r;
+            deltaG = G - rgbChosen.g;
+            deltaB = B - rgbChosen.b;
+
+            const d = Math.sqrt(0.3 * deltaR**2 + 0.4 * deltaG**2 + 0.3 * deltaB**2);
+
+            const maxDistance = Math.sqrt(255 * 255 + 255 * 255 + 255 * 255);
+            const percentMatch = (1 - d / maxDistance) * 100;
+
+            return percentMatch;
+        }
+
+        function validate(R, G, B)
+        {
+            rgbChosen = hexToRgb(document.getElementById("guess").value)
+            console.log(rgbChosen);
+            console.log(R);
+            console.log(G);
+            console.log(B);
+            if (R == rgbChosen.r && G == rgbChosen.g && B == rgbChosen.b || Math.round(diff(R, G, B, rgbChosen)) >= 95)
+            {
+                document.getElementById("result").innerHTML = "Correct! its a " + Math.round(diff(R, G, B, rgbChosen)) + "% Match!"
+            }
+
+            else
+            {
+                document.getElementById("result").innerHTML = "Incorrect, its a " + Math.round(diff(R, G, B, rgbChosen)) + "% match!";
+            }
+        }
+
+    </script>
 </body>
 </html>

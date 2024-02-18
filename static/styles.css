@@ -1,0 +1,29 @@
+*{
+    padding : 0;
+    border : 0;
+    margin : 0;
+    font-family: Poppins;
+}
+
+.bg{
+    background-size: cover;
+}
+
+.display-color,
+.select-color{
+    background-color: coral;
+    display: flex; 
+    width : 450px;
+    height: 450px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25%;
+}
+
+
+.container{
+    padding : 50px 50px 0px 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

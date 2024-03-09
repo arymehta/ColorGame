@@ -3,6 +3,7 @@ from random import randint
 
 app = Flask(__name__)
 
+
 @app.route("/")
 def index():
     if request.method == "GET":
@@ -13,4 +14,5 @@ def index():
         return render_template("index.html", R = R, G = G, B = B)
 
     
-
+if __name__ == "__main__":
+    app.run()
